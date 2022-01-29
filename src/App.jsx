@@ -21,12 +21,12 @@ export default function App() {
     console.log(name);
     setTodos((todos) => {
       return [
+        ...todos,
         {
           id: todos.length + 1,
           name,
           done: false,
-        },
-        ...todos,
+        }
       ];
     });
   };
