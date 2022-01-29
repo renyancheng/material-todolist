@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState }from "react";
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { withSnackbar, useSnackbar } from "notistack";
+import { useForm } from "react-hook-form";
 
 const StyledFab = styled(Fab)({
   position: "absolute",
@@ -28,7 +29,7 @@ const StyledFab = styled(Fab)({
 function Footer(props) {
   const { enqueueSnackbar } = useSnackbar();
   const handleAddTodo = () => {
-    setOpen(true);
+    setDialog(true);
     /* enqueueSnackbar("添加成功", {
       variant: "success",
       anchorOrigin: {
@@ -39,10 +40,23 @@ function Footer(props) {
     }); */
   };
 
-  const [open, setOpen] = React.useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors,isValid },
+    reset
+  } = useForm();
+
+  const onSubmit = ({newTodo}) => {
+    props.addTodo(newTodo);
+    reset();
+    setDialog(false)
+  };
+
+  const [dialog, setDialog] = useState(false);
 
   const handleClose = () => {
-    setOpen(false);
+    setDialog(false);
   };
   return (
     <>
@@ -57,23 +71,37 @@ function Footer(props) {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>新建一个Todo</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="请输入你要做的事"
-            type="email"
-            placeholder="todo..."
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>取消</Button>
-          <Button>确定</Button>
-        </DialogActions>
+      <Dialog open={dialog} onClose={handleClose}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogTitle>新建一个Todo</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              fullWidth
+              label="请输入你要做的事"
+              placeholder="todo..."
+              variant="standard"
+              error={errors?.newTodo ? true : false}
+              helperText={errors?.newTodo ? errors.newTodo.message : null}
+              {...register("newTodo", {
+                required: "todo是必须的",
+                minLength: {
+                  value: 2,
+                  message: "字段todo至少为2个字符",
+                },
+                maxLength: {
+                  value: 10,
+                  message: "字段todo不能超过10个字符",
+                },
+              })}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>取消</Button>
+            <Button type="submit">确定</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );

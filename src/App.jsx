@@ -18,10 +18,16 @@ export default function App() {
   ]);
 
   const addTodo = (name) => {
-    setTodos(...todos, {
-      id: todos.length,
-      name,
-      done: false,
+    console.log(name);
+    setTodos((todos) => {
+      return [
+        {
+          id: todos.length + 1,
+          name,
+          done: false,
+        },
+        ...todos,
+      ];
     });
   };
 
@@ -35,7 +41,7 @@ export default function App() {
               <TodoList todos={todos}></TodoList>
             </Card>
           </Container>
-          <Footer addClick={addTodo}></Footer>
+          <Footer addTodo={addTodo}></Footer>
         </SnackbarProvider>
       </ConfirmProvider>
     </>
