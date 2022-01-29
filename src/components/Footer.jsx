@@ -80,7 +80,7 @@ function Footer(props) {
               margin="dense"
               fullWidth
               label="请输入你要做的事"
-              placeholder="todo..."
+              placeholder="例如：写代码"
               variant="standard"
               error={errors?.newTodo ? true : false}
               helperText={errors?.newTodo ? errors.newTodo.message : null}

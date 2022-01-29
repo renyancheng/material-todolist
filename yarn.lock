@@ -800,6 +800,13 @@ is-core-module@^2.8.1:
   dependencies:
     has "^1.0.3"
 
+js-storages@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/js-storages/download/js-storages-1.1.0.tgz#c9b95c4441748bb507fa732b4af3b1f3539d096a"
+  integrity sha1-yblcREF0i7UH+nMrSvOx81OdCWo=
+  dependencies:
+    typescript "^3.9.5"
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.nlark.com/js-tokens/download/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -826,6 +833,11 @@ lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.npmmirror.com/lines-and-columns/download/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
+
+lockr@^0.9.0-beta.0:
+  version "0.9.0-beta.0"
+  resolved "https://registry.npmmirror.com/lockr/download/lockr-0.9.0-beta.0.tgz#2d13863699a0b358fbe5b8b4d6c6af7913e655bb"
+  integrity sha512-/00iP8I+RJStGkExa8bW5yl1tIyxZvYS1eM5S8ze9D8A73QOxXMSE0lijF37b2HryyqzFJi7vS9LdurTX5e/CA==
 
 loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
@@ -1049,6 +1061,11 @@ to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/to-fast-properties/download/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   integrity sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
+
+typescript@^3.9.5:
+  version "3.9.10"
+  resolved "https://registry.npmmirror.com/typescript/download/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
+  integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
 
 vite@^2.7.2:
   version "2.7.13"

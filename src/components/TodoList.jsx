@@ -9,12 +9,19 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TodoList(props) {
-  const { todos } = props;
+  const { todos, updateTodo } = props;
+
+  const handleCheck = (id) => {
+    return ({ target: { checked } }) => {
+      // console.log(id,checked);
+      updateTodo(id, checked);
+    };
+  };
 
   return (
     <>
       <List>
-        {todos.map((todo) => {
+        {todos?.map((todo) => {
           return (
             <ListItem
               key={todo.id}
@@ -29,12 +36,19 @@ export default function TodoList(props) {
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
-                    defaultChecked={todo.done}
+                    onChange={handleCheck(todo.id)}
+                    checked={todo.done}
                     tabIndex={-1}
                     disableRipple
                   />
                 </ListItemIcon>
-                <ListItemText primary={todo.name} />
+                {todo.done ? (
+                  <del>
+                    <ListItemText primary={todo.name} />
+                  </del>
+                ) : (
+                  <ListItemText primary={todo.name} />
+                )}
               </ListItemButton>
             </ListItem>
           );
