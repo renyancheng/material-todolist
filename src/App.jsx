@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import { SnackbarProvider } from "notistack";
+import { ConfirmProvider } from "material-ui-confirm";
+import { nanoid } from "nanoid";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
 import Footer from "./components/Footer";
-import { SnackbarProvider } from "notistack";
-import { ConfirmProvider } from "material-ui-confirm";
 
 export default function App() {
   let [todos, setTodos] = useState([
@@ -18,32 +18,34 @@ export default function App() {
   ]);
 
   const addTodo = (name) => {
-    console.log(name);
+    // console.log(name);
     setTodos((todos) => {
       return [
         ...todos,
         {
-          id: todos.length + 1,
+          id: nanoid(),
           name,
           done: false,
-        }
+        },
       ];
     });
   };
 
   return (
     <>
-      <ConfirmProvider>
-        <SnackbarProvider maxSnack={3}>
-          <Header></Header>
-          <Container maxWidth="lg" sx={{ py: "70px" }}>
-            <Card>
-              <TodoList todos={todos}></TodoList>
-            </Card>
-          </Container>
-          <Footer addTodo={addTodo}></Footer>
-        </SnackbarProvider>
-      </ConfirmProvider>
+      <ThemeProvider theme={theme}>
+        <ConfirmProvider>
+          <SnackbarProvider maxSnack={3}>
+            <Header></Header>
+            <Container maxWidth="lg" sx={{ py: "70px" }}>
+              <Card>
+                <TodoList todos={todos}></TodoList>
+              </Card>
+            </Container>
+            <Footer addTodo={addTodo}></Footer>
+          </SnackbarProvider>
+        </ConfirmProvider>
+      </ThemeProvider>
     </>
   );
 }
