@@ -4,7 +4,6 @@ import { SnackbarProvider } from "notistack";
 import { ThemeProvider } from "@mui/material/styles";
 import ReactDOM from "react-dom";
 import theme from "./theme";
-import "./index.css";
 import App from "./App";
 
 ReactDOM.render(

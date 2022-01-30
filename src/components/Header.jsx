@@ -1,6 +1,6 @@
 import React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Header() {
   return (
@@ -10,6 +10,14 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             TodoList
           </Typography>
+          <IconButton
+            color="inherit"
+            component="a"
+            href="https://github.com/mufeng233/material-todolist"
+            target="_blank"
+          >
+            <GitHubIcon></GitHubIcon>
+          </IconButton>
         </Toolbar>
       </AppBar>
     </>
