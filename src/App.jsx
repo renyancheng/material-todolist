@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import { nanoid } from "nanoid";
 import { set as setLocal, get as getLocal } from "lockr";
+import { compareArray } from "./utils";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
 import Footer from "./components/Footer";
@@ -16,6 +17,10 @@ export default function App() {
     ]
   );
 
+  useEffect(() => {
+    setLocal("todos", todos);
+  }, [todos]);
+
   const addTodo = (name) => {
     const newTodo = {
       id: nanoid(),
@@ -23,7 +28,6 @@ export default function App() {
       done: false,
     };
     setTodos((todos) => {
-      setLocal("todos", [...todos, newTodo]);
       return [...todos, newTodo];
     });
   };
@@ -34,7 +38,30 @@ export default function App() {
       else return todo;
     });
     setTodos(newTodos);
-    setLocal("todos", newTodos);
+  };
+
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id;
+    });
+    setTodos(newTodos);
+  };
+
+  const deleteAllDoneTodos = () => {
+    const newTodos = todos.filter((todo) => {
+      return todo.done === false;
+    });
+    if (compareArray(todos, newTodos)) return false;
+    setTodos(newTodos);
+    return true;
+  };
+
+  const doneAllTodos = (done) => {
+    const newTodos = todos.map((todo) => {
+      todo.done = done;
+      return todo;
+    });
+    setTodos(newTodos);
   };
 
   return (
@@ -42,10 +69,19 @@ export default function App() {
       <Header></Header>
       <Container maxWidth="lg" sx={{ py: "70px" }}>
         <Card>
-          <TodoList todos={todos} updateTodo={updateTodo}></TodoList>
+          <TodoList
+            todos={todos}
+            updateTodo={updateTodo}
+            deleteTodo={deleteTodo}
+          ></TodoList>
         </Card>
       </Container>
-      <Footer addTodo={addTodo}></Footer>
+      <Footer
+        todos={todos}
+        addTodo={addTodo}
+        doneAllTodos={doneAllTodos}
+        deleteAllDoneTodos={deleteAllDoneTodos}
+      ></Footer>
     </>
   );
 }
